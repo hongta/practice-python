@@ -13,13 +13,13 @@ class UnorderedList(object):
 
     ##################
     ## Iterator method
-    # def __iter__(self):
-    #     current = self.head
-    #     # and then, until we have reached the end:
-    #     while current is not None:
-    #         yield current
-    #         # in order to get from one Node to the next one:
-    #         current = current.next
+    def __iter__(self):
+        current = self.head
+        # and then, until we have reached the end:
+        while current is not None:
+            yield current
+            # in order to get from one Node to the next one:
+            current = current.next
 
     ##################
     ## Iterator method
@@ -168,9 +168,11 @@ def testUnorderedList():
     # print(ul)
     ul.reverse()
     print(ul)
-    # for v in ul:
-    #     print(v)
-    # print ul.delete(13)
+
+    for v in ul:
+        print(v)
+    print ul.delete(13)
+    print(ul)
 
 
 
