@@ -4,11 +4,11 @@ class Node(object):
         self.data = data
         self.next = next_node
     def __str__(self):
-        return self.data
+        return str(self.data)
 
     @property
     def data(self):
-        return str(self._data)
+        return self._data
 
     @data.setter
     def data(self, v):
