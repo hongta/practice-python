@@ -37,7 +37,6 @@ class BinarySearchTree:
     def traverse(self):
         return self._traverse(self._root)
 
-
     # Python 2 version
     def _traverse(self, node):
         if node:
@@ -60,8 +59,19 @@ class BinarySearchTree:
     def height(self):
         pass
 
-    def search(self, v):
-        pass
+    def search(self, k):
+        return self._search(self._root, k)
+
+    def _search(self, node, k):
+        if not node:
+            return None
+        if k == node.key:
+            return node
+
+        if k < node.key:
+            return self._search(node.left, k)
+        else:
+            return self._search(node.right, k)
 
     def count():
         pass
@@ -77,3 +87,5 @@ if __name__ == "__main__":
 
     for v in t.traverse():
         print v.key
+
+    print t.search(13)
