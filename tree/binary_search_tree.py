@@ -35,12 +35,12 @@ class BinarySearchTree:
         pass
 
     def traverse(self):
-        self._traverse(self._root)
+        return self._traverse(self._root)
 
     def _traverse(self, node):
         if node:
             if node.left:
-                for n in _traverse(node.left):
+                for n in self._traverse(node.left):
                     yield n
             yield node
             if node.right:
@@ -64,8 +64,6 @@ if __name__ == "__main__":
     t.insert(1)
     t.insert(15)
     t.insert(7)
-    print(t._root.right.left)
-    # p = list(t.traverse())
-    # p
-    # for v in p:
-    #     print v.key
+    
+    for v in t.traverse():
+        print v.key

@@ -9,7 +9,7 @@ class TreeNode(object):
         self.parent = None
 
     def __str__(self):
-        s = self.key
+        s = str(self.key)
         if self.payload:
-            s += ": " + self.payload
-        return str(s)
+            s += ": " + str(self.payload)
+        return s
