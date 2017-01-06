@@ -37,6 +37,8 @@ class BinarySearchTree:
     def traverse(self):
         return self._traverse(self._root)
 
+
+    # Python 2 version
     def _traverse(self, node):
         if node:
             if node.left:
@@ -46,6 +48,14 @@ class BinarySearchTree:
             if node.right:
                 for n in self._traverse(node.right):
                     yield n
+
+
+    # Python 3 version
+    # def _traverse(self, node):
+    #     if node:
+    #         yield from self._traverse(node.left)
+    #         yield node
+    #         yield from self._traverse(node.right)
 
     def height(self):
         pass
@@ -64,6 +74,6 @@ if __name__ == "__main__":
     t.insert(1)
     t.insert(15)
     t.insert(7)
-    
+
     for v in t.traverse():
         print v.key
