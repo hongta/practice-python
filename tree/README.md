@@ -37,13 +37,19 @@
       - if without any child, set `node` to None
       - if the `node` is root, need update `self._root`
 
-#### references:
-  * http://stackoverflow.com/questions/29799667/using-generators-to-perform-an-inorder-tree-traversal-on-a-bst
 
 ### Red-Black Trees
+Red-black tree is a type of self-balancing binary search tree[3]. 2 By using color changing and rotation, red-black tree provides a very simple and straightforward way to keep the tree balanced.
+Every node is either red or black.
+  * The root is black.
+  * Every leaf (NIL) is black.
+  * If a node is red, then both its children are black.
+  * For each node, all paths from the node to descendant leaves contain the same number of black nodes.
+
+### AVL Trees
 
 ### Tries
 
-
-
-### AVL Trees
+#### references:
+  * http://stackoverflow.com/questions/29799667/using-generators-to-perform-an-inorder-tree-traversal-on-a-bst
+  * https://github.com/liuxinyu95/AlgoXY
