@@ -14,6 +14,11 @@ class BinarySearchTree:
         else:
             self._insert(self._root, k, payload)
 
+    def remove_node(self, node):
+        if None:
+            return
+        node.key = node.payload = node.left = node.right = node.parent = None
+
     def _insert(self, tree_node, k, payload=None):
         n = TreeNode(k, payload)
         if k == tree_node.key:
@@ -23,16 +28,85 @@ class BinarySearchTree:
         if k < tree_node.key:
             if not tree_node.left:
                 tree_node.left = n
+                n.parent = tree_node
             else:
                 self._insert(tree_node.left, k, payload)
         else:
             if not tree_node.right:
                 tree_node.right = n
+                n.parent = tree_node
             else:
                 self._insert(tree_node.right, k, payload)
 
-    def delete(self, v):
-        pass
+    def delete(self, k):
+        node = self.search(k)
+        if not node:
+            return
+        p = node.parent
+
+        if node.left and node.right:
+            # if the node has two children, we change the node's key and payload
+            min_on_right = self._find_minmum(node.right)
+            min_parent = min_on_right.parent
+
+            node.key = min_on_right.key
+            node.payload = min_on_right.payload
+            if min_on_right != node.right:
+                #update min right child, make it become min's parent's left child
+                if min_on_right.right:
+                    min_parent.left = min_on_right.right
+                    min_on_right.right.parent = min_parent
+                else:
+                    min_parent.left = None
+
+            else:
+                node.right = min_on_right.right
+                min_on_right.right.parent = node
+
+            self.remove_node(min_on_right)
+
+        else:
+            # if the node has 0-1 child, we delete this node
+            old_node = node
+            if not node.left and not node.right:
+                # no child
+                node = None
+            elif node.left:
+                # has one left child
+                node.left.parent = p
+                node = node.left
+
+            elif node.right:
+                # has one right child
+                node.right.parent = p
+                node = node.right
+
+            if not p:
+                #trying to delete root node
+                self._root = node
+            else:
+                if p.left == old_node:
+                    p.left = node
+                else:
+                    p.right = node
+            self.remove_node(old_node)
+
+    def _find_minmum(self, node):
+
+        if not node:
+            return None
+
+        while node.left:
+            node = node.left
+        return node
+
+    def _find_maxmum(self, node):
+        if not node:
+            return None
+
+        while node.right:
+            node = node.right
+        return node
 
     def traverse(self):
         return self._traverse(self._root)
@@ -78,14 +152,15 @@ class BinarySearchTree:
 
 if __name__ == "__main__":
     t = BinarySearchTree()
-    t.insert(3)
-    t.insert(8)
-    t.insert(12)
-    t.insert(1)
-    t.insert(15)
-    t.insert(7)
+    # t.insert(3)
+    # t.insert(8)
+    # t.insert(12)
+    # t.insert(1)
+    # t.insert(15)
+    # t.insert(7)
+    data = [30, 25, 49, 35, 68, 33, 34, 38, 40, 37, 36]
+    for i in data:
+        t.insert(i)
 
     for v in t.traverse():
         print v.key
-
-    print t.search(13)
