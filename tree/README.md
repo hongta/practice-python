@@ -8,6 +8,11 @@
     - If `k` is equal to the key of root node, overwrite the `payload`
     - If `k` is less then the key of root node, insert it into the left child
     - If `k` is greater than the key of root node, insert it into the right child
+
+  * Build : build a Binary Search Tree from an array
+    - shuffle the elements before build to BST, to make a balanced tree.
+
+
   * Traverse : use `yield` generators to perform inorder traversal
   ```python
   t.insert(1)
@@ -35,9 +40,10 @@
 #### references:
   * http://stackoverflow.com/questions/29799667/using-generators-to-perform-an-inorder-tree-traversal-on-a-bst
 
+### Red-Black Trees
+
 ### Tries
 
 
-### Red-Black Trees
 
 ### AVL Trees
