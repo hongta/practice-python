@@ -22,6 +22,16 @@
       # do somethings
       pass
   ```
+  * Predecessor: make BinarySearchTree supports the iterator protocol
+  ```python
+  t = BinarySearchTree()
+  t.insert(32)
+  t.insert(25)
+  t.insert(43)
+  #...
+  for v in t:
+    print v
+  ```
   * Search: According to the definition of binary search tree, search a key in a tree can be realized as the following.
     - If the tree is empty, the searching fails;
     - If the key of the root is equal to the value to be found, the search succeed. The root is returned as the result;
@@ -47,6 +57,9 @@ Every node is either red or black.
   * For each node, all paths from the node to descendant leaves contain the same number of black nodes.
 
 ### AVL Trees
+An **AVL tree** is a binary search tree that is height balanced: for each node `x`, the heights of the left and right subtrees of `x` differ by at most 1.
+  * Insert
+  * Delete
 
 ### Tries
 

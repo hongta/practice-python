@@ -7,6 +7,16 @@ class BinarySearchTree:
     def __init__(self):
         self._root = None;
 
+    ##################
+    ## Iterator method
+    def __iter__(self):
+        current = self._find_minmum(self._root)
+        # and then, until we have reached the end:
+        while current is not None:
+            yield current
+            # in order to get from one Node to the next one:
+            current = self.predecessor(current)
+
     def insert(self, k, payload=None):
         # tree is empty construct the tree
         if not self._root:
@@ -130,6 +140,19 @@ class BinarySearchTree:
     #         yield node
     #         yield from self._traverse(node.right)
 
+    def predecessor(self, node):
+        if not node:
+            return None
+
+        if node.right:
+            return self._find_minmum(node.right)
+
+        p = node.parent
+        while p and p.right == node:
+            node = p
+            p = p.parent
+        return p
+
     def height(self):
         pass
 
@@ -161,6 +184,5 @@ if __name__ == "__main__":
     data = [30, 25, 49, 35, 68, 33, 34, 38, 40, 37, 36]
     for i in data:
         t.insert(i)
-
     for v in t.traverse():
         print v.key
