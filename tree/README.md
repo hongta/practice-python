@@ -14,9 +14,16 @@
   t.insert(15)
   t.insert(7)
   for v in t.traverse():
-      # do somethins
+      # do somethings
       pass
   ```
+  * delete: delete an element in Binary Search Tree by `key`, and  keep the BST property.
+    - If node have two children
+      - use minimum element(`min_on_right`) of its right sub tree to replace `node.key` and `node.payload`
+    - Otherwise, node have one or without any child
+      - if have left child or right child, use the child replace the `node`
+      - if without any child, set `node` to None
+      - if the `node` is root, need update `self._root`
 
 #### references:
   * http://stackoverflow.com/questions/29799667/using-generators-to-perform-an-inorder-tree-traversal-on-a-bst
