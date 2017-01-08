@@ -3,14 +3,17 @@
 
 ### Binary Search Tree
 
+  * Construct : build a balanced Binary Search Tree from an array
+    - If the array is unordered, shuffle the elements before build to BST, insert one by one, to make a balanced tree.
+    - If the array is sorted, works link binary search
+
+
+
   * Insert : use the following algorithm, to insert a key `k`
     - If the tree is empty, construct a leaf node with key = `k`
     - If `k` is equal to the key of root node, overwrite the `payload`
     - If `k` is less then the key of root node, insert it into the left child
     - If `k` is greater than the key of root node, insert it into the right child
-
-  * Build : build a Binary Search Tree from an array
-    - shuffle the elements before build to BST, to make a balanced tree.
 
 
   * Traverse : use `yield` generators to perform inorder traversal
