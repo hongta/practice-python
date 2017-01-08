@@ -6,6 +6,7 @@
   * Construct : build a balanced Binary Search Tree from an array
     - If the array is unordered, shuffle the elements before build to BST, insert one by one, to make a balanced tree.
     - If the array is sorted, works link binary search
+![    ](../../resources/optimal-binary-search-tree-from-sorted-array.gif)
 
 
 
