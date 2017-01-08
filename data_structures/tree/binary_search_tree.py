@@ -33,14 +33,12 @@ class BinarySearchTree(object):
 
         if k < tree_node.key:
             if not tree_node.left:
-                tree_node.left = n
-                n.parent = tree_node
+                tree_node.set_children(left=n)
             else:
                 self._insert(tree_node.left, k, payload)
         else:
             if not tree_node.right:
-                tree_node.right = n
-                n.parent = tree_node
+                tree_node.set_children(right=n)
             else:
                 self._insert(tree_node.right, k, payload)
 
@@ -66,14 +64,12 @@ class BinarySearchTree(object):
             if min_on_right != node.right:
                 #update min right child, make it become min's parent's left child
                 if min_on_right.right:
-                    min_parent.left = min_on_right.right
-                    min_on_right.right.parent = min_parent
+                    min_parent.set_children(left=min_on_right.right)
                 else:
                     min_parent.left = None
 
             else:
-                node.right = min_on_right.right
-                min_on_right.right.parent = node
+                node.set_children(right=min_on_right.right)
 
             self.remove_node(min_on_right)
 
