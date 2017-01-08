@@ -8,67 +8,60 @@ class RedBlackTree(BinarySearchTree):
     def __init__(self):
         self._root = None;
 
-    def rotate_left(self):
+    def left_rotate(self):
         if not self._root or not self._root.right:
             return False
-
-        old_root = self._root
-        new_root = old_root.right
-        new_root.parent = None
-
-        old_root.set_children(right=new_root.left)
-        new_root.set_children(left=old_root)
-
-        self._root = new_root
+        right_child = self._root.right
+        self._left_rotate(self._root)
+        self._root = right_child
 
         return True
 
-    def rotate_left_grandson(self):
-        if not self._root or not self._root.right or not self._root.right.left:
-            return False
-
-        old_root = self._root
-        old_root_right = old_root.right
-        new_root = old_root.right.left
-        new_root.parent = None
-
-        old_root.set_children(right=new_root.left)
-        old_root_right.set_children(left=new_root.right)
-        new_root.set_children(left=old_root, right=old_root_right)
-
-        self._root = new_root
-
-        return True
-
-    def rotate_right(self):
-        if not self._root or not self._root.left:
-            return False
-
-        old_root = self._root
-        new_root = old_root.left
-        new_root.parent = None
-
-        old_root.set_children(left=new_root.right)
-        new_root.set_children(right=old_root)
-
-        self._root = new_root
-
-        return True
-
-    def rotate_right_grandson(self):
+    def left_right_rotate(self):
         if not self._root or not self._root.left or not self._root.left.right:
             return False
 
-        old_root = self._root
-        old_root_right = old_root.left
-        new_root = old_root.left.right
-        new_root.parent = None
+        return  self._left_rotate(self._root.left) and self.right_rotate()
 
-        old_root.set_children(left=new_root.right)
-        old_root_right.set_children(right=new_root.left)
-        new_root.set_children(left=old_root_right, right=old_root)
 
-        self._root = new_root
+    def right_rotate(self):
+        if not self._root or not self._root.left:
+            return False
+
+        left_child = self._root.left;
+        self._right_rotate(self._root)
+
+        self._root = left_child
+
+        return True
+
+    def right_left_rotate(self):
+        if not self._root or not self._root.right or not self._root.right.left:
+            return False
+
+        return  self._right_rotate(self._root.right) and self.left_rotate()
+
+    def _left_rotate(self, node):
+        if not node or not node.right:
+            return False
+
+        right_of_node = node.right
+        self._replace_with(node, right_of_node)
+
+        node.set_children(right=right_of_node.left)
+        right_of_node.set_children(left=node)
+
+        return True
+
+    def _right_rotate(self, node):
+        if not node or not node.left:
+            return False
+
+        left_of_node = node.left
+        self._replace_with(node, left_of_node)
+
+        node.set_children(left=left_of_node.right)
+        left_of_node.set_children(right=node)
 
         return True
 
@@ -84,5 +77,13 @@ if __name__ == '__main__':
     rbt.insert(17)
     rbt.insert(18)
     rbt.insert(16)
-    # rbt.rotate_left_grandson()
-    rbt.rotate_right_grandson()
+    rbt.insert(12)
+
+    for v in rbt:
+        print v
+    rbt.right_left_rotate()
+    print rbt._root,rbt._root.left, rbt._root.right
+    # for v in rbt:
+    #     print v
+    # p2 = rbt.search(20)
+    # print p2, p2.left, p2.right, p2.parent
