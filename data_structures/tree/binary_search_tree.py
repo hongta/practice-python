@@ -17,6 +17,21 @@ class BinarySearchTree(object):
             # in order to get from one Node to the next one:
             current = self.predecessor(current)
 
+    def _replace_with(self, old_node, new_node):
+        if not old_node:
+            return False
+
+        if old_node.parent:
+            if old_node.parent.left == old_node:
+                old_node.parent.set_children(left=new_node)
+            else:
+                old_node.parent.set_children(right=new_node)
+        else:
+            if new_node:
+                new_node.parent = None
+
+        return True
+
     def insert(self, k, payload=None):
         # tree is empty construct the tree
         if not self._root:
