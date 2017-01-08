@@ -3,7 +3,7 @@
 
 from tree_node import TreeNode
 
-class BinarySearchTree:
+class BinarySearchTree(object):
     def __init__(self):
         self._root = None;
 
@@ -24,10 +24,6 @@ class BinarySearchTree:
         else:
             self._insert(self._root, k, payload)
 
-    def remove_node(self, node):
-        if None:
-            return
-        node.key = node.payload = node.left = node.right = node.parent = None
 
     def _insert(self, tree_node, k, payload=None):
         n = TreeNode(k, payload)
@@ -47,6 +43,12 @@ class BinarySearchTree:
                 n.parent = tree_node
             else:
                 self._insert(tree_node.right, k, payload)
+
+    def remove_node(self, node):
+        if None:
+            return
+        node.key = node.payload = node.left = node.right = node.parent = None
+        del node
 
     def delete(self, k):
         node = self.search(k)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-class Stack:
+class Stack(object):
 
     def __init__(self):
         self._items = []

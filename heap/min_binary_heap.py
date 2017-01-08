@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-class MinBinaryHeap:
+class MinBinaryHeap(object):
     def __init__(self):
         self._heap = [0]
         self._size = 0
