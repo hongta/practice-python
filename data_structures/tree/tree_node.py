@@ -81,3 +81,20 @@ class TreeNode(object):
                 self.right.parent = self
 
         return old_children
+
+class RedBlackTreeNode(TreeNode):
+    
+    def __init__(self, key=None, payload=None):
+        super(TreeNode,self).__init__(key, payload)
+        self.color="red"
+
+    @property
+    def color(self):
+        return self._color
+
+    @color.setter
+    def color(self, v):
+        if v and v in ["red", "black"]:
+            self._color = v
+
+        raise ValueError("The value for color only allow 'red' or 'black'.")
