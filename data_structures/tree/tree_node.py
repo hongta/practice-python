@@ -14,6 +14,51 @@ class TreeNode(object):
             s += ": " + str(self.payload)
         return s
 
+    @property
+    def left(self):
+        return self._left
+
+    @left.setter
+    def left(self, v):
+        if v is None:
+            self._left = v
+            return
+
+        if not isinstance(v, TreeNode):
+            raise TypeError("The instance type should be TreeNode")
+
+        self._left = v
+
+    @property
+    def right(self):
+        return self._right
+
+    @right.setter
+    def right(self, v):
+        if v is None:
+            self._right = v
+            return
+
+        if not isinstance(v, TreeNode):
+            raise TypeError("The instance type should be TreeNode")
+
+        self._right = v
+
+    @property
+    def parent(self):
+        return self._parent
+
+    @parent.setter
+    def parent(self, v):
+        if v is None:
+            self._parent = v
+            return
+
+        if not isinstance(v, TreeNode):
+            raise TypeError("The instance type should be TreeNode")
+
+        self._parent = v
+
     def set_children(self, **kwargs):
         """
             This funciton used to set node's children, and also update its parent
