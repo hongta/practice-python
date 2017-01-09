@@ -43,6 +43,11 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(node_45.parent.key, 20)
 
     def test_insert(self):
+        self.tree2.insert(15)
+        node_15 = self.tree2._root.left.right
+        self.assertEqual(node_15.left, None)
+        self.assertEqual(node_15.right, None)
+        self.assertEqual(node_15.parent.key, 12)
         pass
 
     def tearDown(self):
