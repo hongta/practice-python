@@ -83,9 +83,9 @@ class TreeNode(object):
         return old_children
 
 class RedBlackTreeNode(TreeNode):
-    
+
     def __init__(self, key=None, payload=None):
-        super(TreeNode,self).__init__(key, payload)
+        super(RedBlackTreeNode,self).__init__(key, payload)
         self.color="red"
 
     @property
@@ -96,5 +96,5 @@ class RedBlackTreeNode(TreeNode):
     def color(self, v):
         if v and v in ["red", "black"]:
             self._color = v
-
-        raise ValueError("The value for color only allow 'red' or 'black'.")
+        else:
+            raise ValueError("The value for color only allow 'red' or 'black'.")
