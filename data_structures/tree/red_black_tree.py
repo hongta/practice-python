@@ -1,12 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from tree_node import TreeNode
+from tree_node import TreeNode, RedBlackTreeNode
 from binary_search_tree import BinarySearchTree
 
 class RedBlackTree(BinarySearchTree):
     def __init__(self):
-        self._root = None;
+        super(RedBlackTree, self).__init()
+
+    def insert(self, k, payload=None):
+        # tree is empty construct the tree
+        new_node = RedBlackTreeNode(k,payload)
+        if not self._root:
+            self._root= new_node
+            node = new_node
+        else:
+            new_node = self._insert(self._root, new_node)
+
+
 
     def left_rotate(self):
         if not self._root or not self._root.right:
@@ -42,6 +53,24 @@ class RedBlackTree(BinarySearchTree):
         return  self._right_rotate(self._root.right) and self.left_rotate()
 
     def _left_rotate(self, node):
+        """Left-rotates node x on tree T.
+
+                   x
+                  / \
+                 a   y
+                    / \
+                   b   g
+
+            mutates into:
+
+                       y
+                      / \
+                     x   g
+                    / \
+                   a   b
+
+        Used for maintaining tree balance.
+        """
         if not node or not node.right:
             return False
 
@@ -54,6 +83,24 @@ class RedBlackTree(BinarySearchTree):
         return True
 
     def _right_rotate(self, node):
+        """Right-rotates node x on tree T.
+
+                   x
+                  / \
+                 y   g
+                / \
+               a   b
+
+        mutates into:
+
+                   y
+                  / \
+                 a   x
+                    / \
+                   b   g
+
+        Used for maintaining tree balance.
+        """
         if not node or not node.left:
             return False
 
@@ -78,11 +125,15 @@ if __name__ == '__main__':
     rbt.insert(18)
     rbt.insert(16)
     rbt.insert(12)
+    rbt.insert(35)
 
     for v in rbt:
         print v
     rbt.right_left_rotate()
     print rbt._root,rbt._root.left, rbt._root.right
+
+    p = RedBlackTreeNode(25,"abc")
+    print p.key, p.payload
     # for v in rbt:
     #     print v
     # p2 = rbt.search(20)
