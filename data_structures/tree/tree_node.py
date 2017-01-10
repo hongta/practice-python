@@ -98,3 +98,16 @@ class RedBlackTreeNode(TreeNode):
             self._color = v
         else:
             raise ValueError("The value for color only allow 'red' or 'black'.")
+
+    @property
+    def uncle(self):
+        if self.parent and self.parent.parent:
+            p = self.parent.parent
+            if p.left == self.parent:
+                return p.right
+            else:
+                return p.left
+
+    @uncle.setter
+    def uncle(self, v):
+        raise ValueError("Don't assign value to uncle")

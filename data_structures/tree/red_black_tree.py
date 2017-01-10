@@ -6,7 +6,7 @@ from binary_search_tree import BinarySearchTree
 
 class RedBlackTree(BinarySearchTree):
     def __init__(self):
-        super(RedBlackTree, self).__init()
+        super(RedBlackTree, self).__init__()
 
     def insert(self, k, payload=None):
         # tree is empty construct the tree
@@ -17,7 +17,33 @@ class RedBlackTree(BinarySearchTree):
         else:
             new_node = self._insert(self._root, new_node)
 
+        self._insert_fixup(new_node)
 
+    def _insert_fixup(self, x):
+
+        while x.parent and x.parent.color == "red":
+            if x.uncle and x.uncle.color == "red":
+                x.parent.color = "black"
+                x.parent.parent.color = "red"
+                x.uncle.color = "red"
+                x = x.parent.parent
+            else :
+                if x.parent == x.parent.parent.left:
+                    if x == x.parent.right:
+                        x = x.parent
+                        self._left_rotate(x)
+                    x.parent.color = "black"
+                    x.parent.parent.color = "red"
+                    self._right_rotate(x.parent.parent)
+                else:
+                    if x == x.parent.left:
+                        x = x.parent
+                        self._right_rotate(x)
+                    x.parent.color = "black"
+                    x.parent.parent.color = "red"
+                    self._right_rotate(x.parent.parent)
+
+        self._root.color = "black"
 
     def left_rotate(self):
         if not self._root or not self._root.right:
@@ -124,11 +150,14 @@ if __name__ == '__main__':
     rbt.insert(17)
     rbt.insert(18)
     rbt.insert(16)
-    rbt.insert(12)
-    rbt.insert(35)
+    # rbt.insert(12)
+    # rbt.insert(35)
 
     for v in rbt:
-        print v
+        print v,v.color
+    rbt.insert(12)
+    for v in rbt:
+        print v,v.color
     rbt.right_left_rotate()
     print rbt._root,rbt._root.left, rbt._root.right
 
