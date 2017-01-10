@@ -23,13 +23,27 @@ class RedBlackTree(BinarySearchTree):
 
         while x.parent and x.parent.color == "red":
             if x.uncle and x.uncle.color == "red":
+                """
+                                   x
+                                  / \
+                                 R   R
+                                    / \
+                                   x   g
+                """
                 x.parent.color = "black"
                 x.parent.parent.color = "red"
                 x.uncle.color = "red"
                 x = x.parent.parent
-            else :
+            else : # uncle is "black"
                 if x.parent == x.parent.parent.left:
                     if x == x.parent.right:
+                        """
+                                   .
+                                  / \
+                                 R   B
+                                / \
+                               .   x
+                        """
                         x = x.parent
                         self._left_rotate(x)
                     x.parent.color = "black"
@@ -37,6 +51,13 @@ class RedBlackTree(BinarySearchTree):
                     self._right_rotate(x.parent.parent)
                 else:
                     if x == x.parent.left:
+                        """
+                               .
+                              / \
+                             B   R
+                                / \
+                               x   .
+                        """
                         x = x.parent
                         self._right_rotate(x)
                     x.parent.color = "black"
