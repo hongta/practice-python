@@ -41,7 +41,7 @@ class BinarySearchTree(object):
             self._insert(self._root, n)
 
 
-    def _insert(self, tree_node, key, payload=None):
+    def _insert(self, tree_node, new_node):
         if new_node.key == tree_node.key:
             tree_node.payload = new_node.payload
             return tree_node
@@ -114,6 +114,8 @@ class BinarySearchTree(object):
                 else:
                     p.right = node
             self.remove_node(old_node)
+    def find_minnum(self):
+        return self._find_minmum(self._root)
 
     def _find_minmum(self, node):
 
@@ -123,6 +125,9 @@ class BinarySearchTree(object):
         while node.left:
             node = node.left
         return node
+
+    def find_maxmum(self):
+        return self._find_maxmum(self._root)
 
     def _find_maxmum(self, node):
         if not node:
@@ -175,7 +180,7 @@ class BinarySearchTree(object):
             return self._find_maxmum(node.left)
 
         p = node.parent
-        while p and p.left = node:
+        while p and p.left == node:
             node = p
             p = p.parent
         return p
@@ -213,3 +218,7 @@ if __name__ == "__main__":
         t.insert(i)
     for v in t.traverse():
         print v.key
+    d = t._find_maxmum(t._root)
+    while d:
+        print d.key
+        d = t.successor(d)
