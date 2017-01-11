@@ -41,7 +41,7 @@ class BinarySearchTree(object):
             self._insert(self._root, n)
 
 
-    def _insert(self, tree_node, new_node):
+    def _insert(self, tree_node, key, payload=None):
         if new_node.key == tree_node.key:
             tree_node.payload = new_node.payload
             return tree_node
@@ -163,6 +163,19 @@ class BinarySearchTree(object):
 
         p = node.parent
         while p and p.right == node:
+            node = p
+            p = p.parent
+        return p
+
+    def successor(self, node):
+        if not node:
+            return None
+
+        if node.left:
+            return self._find_maxmum(node.left)
+
+        p = node.parent
+        while p and p.left = node:
             node = p
             p = p.parent
         return p
