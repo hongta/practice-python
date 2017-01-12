@@ -26,7 +26,7 @@
       # do somethings
       pass
   ```
-  * Predecessor: make BinarySearchTree supports the iterator protocol
+  * Successor and Predecessor: make BinarySearchTree supports the iterator protocol
   ```python
   t = BinarySearchTree()
   t.insert(32)

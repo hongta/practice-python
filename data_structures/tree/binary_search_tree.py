@@ -15,7 +15,7 @@ class BinarySearchTree(object):
         while current is not None:
             yield current
             # in order to get from one Node to the next one:
-            current = self.predecessor(current)
+            current = self.successor(current)
 
     def _replace_with(self, old_node, new_node):
         if not old_node:
@@ -113,7 +113,7 @@ class BinarySearchTree(object):
                 else:
                     p.right = node
             self.remove_node(old_node)
-            
+
     def find_minnum(self):
         return self._find_minmum(self._root)
 
@@ -159,7 +159,7 @@ class BinarySearchTree(object):
     #         yield node
     #         yield from self._traverse(node.right)
 
-    def predecessor(self, node):
+    def successor(self, node):
         if not node:
             return None
 
@@ -172,7 +172,7 @@ class BinarySearchTree(object):
             p = p.parent
         return p
 
-    def successor(self, node):
+    def predecessor(self, node):
         if not node:
             return None
 
