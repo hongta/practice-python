@@ -42,15 +42,12 @@ class AVLTree(BinarySearchTree):
 
         # 3. check whether the node became unbalanced
         balance = self.get_balance(node)
-        print balance
         if self.get_balance(node) ==2:
-            print "node.right: ", self.get_balance(node.right)
             if self.get_balance(node.right) < 0:
                 node.right = self._right_rotate(node.right)
             return self._left_rotate(node)
 
         if self.get_balance == -2:
-            print "node.left: ", self.get_balance(node.left)
             if self.get_balance(node.left) > 0:
                 node.left = self._left_rotate(node.left)
             return self._right_rotate(node)
@@ -59,7 +56,7 @@ class AVLTree(BinarySearchTree):
 
     def _update_height(self, node):
         node.height = max(self.height(node.left), self.height(node.right)) + 1
-        
+
     def height(self, n):
         if not n:
             return 0
