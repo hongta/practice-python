@@ -115,4 +115,4 @@ class RedBlackTreeNode(TreeNode):
 class AVLTreeNode(TreeNode):
     def __init__(self, key=None, payload=None):
         super(AVLTreeNode, self).__init__(key, payload)
-        self.height = -1
+        self.height = 1
