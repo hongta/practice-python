@@ -72,19 +72,17 @@ class BinarySearchTree(object):
         p = node.parent
 
         if node.left and node.right:
-            # if the node has two children, we change the node's key and payload
+            # if the node has two children, we replace the node's key and payload
+            #  with minnum of the right substree
             min_on_right = self._find_minmum(node.right)
             min_parent = min_on_right.parent
 
             node.key = min_on_right.key
             node.payload = min_on_right.payload
+
             if min_on_right != node.right:
                 #update min right child, make it become min's parent's left child
-                if min_on_right.right:
-                    min_parent.set_children(left=min_on_right.right)
-                else:
-                    min_parent.left = None
-
+                min_parent.set_children(left=min_on_right.right)
             else:
                 node.set_children(right=min_on_right.right)
 
@@ -115,6 +113,7 @@ class BinarySearchTree(object):
                 else:
                     p.right = node
             self.remove_node(old_node)
+            
     def find_minnum(self):
         return self._find_minmum(self._root)
 
