@@ -29,6 +29,7 @@ class BinarySearchTree(object):
         else:
             if new_node:
                 new_node.parent = None
+                self._root = new_node
 
         return True
 
