@@ -149,6 +149,33 @@ class TestSkipList(unittest.TestCase):
         self.sl.delete(2)
         self.assertIsNone(self.sl.search(2))
 
+    # Test Magic functions
+
+    def test_magic_len(self):
+        self.sl.insert(1)
+        self.sl.insert(3)
+        self.sl.insert(4)
+        self.assertEqual(len(self.sl), 3)
+
+    def test_magic_set_and_get_item(self):
+        self.sl[12] = "abc"
+        self.sl[8] = "abcdd"
+        self.sl[9] = "dd"
+        self.sl[28] = "abcwc"
+        self.sl.insert(13, "123")
+
+        self.assertIsNotNone(self.sl.search(12))
+        self.assertEqual(self.sl.search(8).payload, "abcdd")
+        self.assertEqual(self.sl[9], "dd")
+        self.assertEqual(self.sl[13], "123")
+
+        self.sl[13]= "abcd"
+        self.assertEqual(self.sl[13], "abcd")
+        self.sl.delete(13)
+
+        with self.assertRaises(KeyError):
+            self.sl[13]
+
     def tearDown(self):
         self.sl = None
 

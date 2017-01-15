@@ -15,6 +15,22 @@ class SkipList(object):
     def head(self):
         return self._head
 
+    def __len__(self):
+        return self.count
+
+    def __getitem__(self, key):
+        node = self.search(key)
+        if node is None:
+            raise KeyError('Key <{0}> not found'.format(key))
+        return node.payload
+
+    def __setitem__(self, key, value):
+        return self.insert(key, value)
+
+    def __delitem__(self, key):
+        self.delete(key)
+
+
 
     def _update_list(self, key):
         update = [None] * self.height
@@ -55,6 +71,7 @@ class SkipList(object):
             for i in range(len(node.next)):
                 node.next[i] = update[i].next[i]
                 update[i].next[i] = node
+                node.payload = payload
             self.count += 1
         else:
             #if node exists, replace payload
@@ -97,3 +114,7 @@ if __name__ == '__main__':
     l.insert(23)
     l.print_list()
     print l.search(12)
+    l[12] = "23"
+    l[44] = "23"
+    print l.search(12)
+    print l[12]
