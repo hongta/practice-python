@@ -176,6 +176,19 @@ class TestSkipList(unittest.TestCase):
         with self.assertRaises(KeyError):
             self.sl[13]
 
+    def test_iterator(self):
+        self.sl.insert(1)
+        self.sl.insert(3)
+        self.sl.insert(42)
+        self.sl.insert(2)
+        self.sl.insert(15)
+        self.sl.insert(23)
+        l = []
+        for v in self.sl:
+            l.append(v.key)
+        self.assertEqual(l, [1,2,3,15,23,42])
+
+
     def tearDown(self):
         self.sl = None
 

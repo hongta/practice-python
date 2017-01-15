@@ -30,6 +30,13 @@ class SkipList(object):
     def __delitem__(self, key):
         self.delete(key)
 
+    def __iter__(self):
+        current = self.head.next[0]
+        # and then, until we have reached the end:
+        while current is not None:
+            yield current
+            # in order to get from one Node to the next one:
+            current = current.next[0]
 
 
     def _update_list(self, key):
@@ -118,3 +125,5 @@ if __name__ == '__main__':
     l[44] = "23"
     print l.search(12)
     print l[12]
+    for v in l:
+        print v.key
