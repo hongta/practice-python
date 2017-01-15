@@ -13,9 +13,11 @@ class WeightedQuickUnion(object):
         return self.count
 
     def find(self, val):
-        p = val
-        while self.id[p] != p:
-            p = self.id[p]
+        n = val
+        while self.id[n] != n:
+            #path compression
+            self.id[n] = self.id[self.id[n]]
+            n = self.id[n]
 
         return p
 
@@ -26,7 +28,13 @@ class WeightedQuickUnion(object):
         if p_root == q_root:
             return
 
-        self.id[q_root] = p_root
+        if self.weight[p_root] > self.weight[q_root]:
+            self.id[q_root] = p_root
+            self.weight[q_root] += self.weight[p_root]
+        else:
+            self.id[p_root] = q_root
+            self.weight[p_root] += self.weight[q_root]
+
         self.count -= 1
 
     def is_connected(self, p, q):
