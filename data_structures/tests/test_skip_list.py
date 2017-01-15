@@ -116,6 +116,39 @@ class TestSkipList(unittest.TestCase):
         self.sl.delete(5)
         self.assertEqual(self.sl.count, 3)
 
+    def test_delete_to_empty(self):
+        self.sl.insert(1)
+        self.sl.insert(7)
+        self.sl.insert(4)
+        self.sl.delete(1)
+        self.sl.delete(4)
+        self.sl.delete(7)
+        self.assertEqual(self.sl.count, 0)
+
+
+
+    # Test Search
+    def test_search_in_empty(self):
+        self.assertIsNone(self.sl.search(13))
+        self.sl.insert(12)
+        self.sl.insert(3)
+        self.sl.delete(3)
+        self.sl.delete(12)
+        self.assertIsNone(self.sl.search(3))
+        self.assertIsNone(self.sl.search(12))
+        self.assertEqual(self.sl.count, 0)
+
+    def test_search(self):
+        self.sl.insert(1)
+        self.sl.insert(3)
+        self.sl.insert(4)
+        self.sl.insert(2)
+        self.assertEqual(self.sl.search(1).key, 1)
+        self.assertEqual(self.sl.search(4).key, 4)
+        self.assertEqual(self.sl.search(2).key, 2)
+        self.sl.delete(2)
+        self.assertIsNone(self.sl.search(2))
+
     def tearDown(self):
         self.sl = None
 

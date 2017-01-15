@@ -20,7 +20,7 @@ class SkipList(object):
         update = [None] * self.height
         node = self.head
 
-        for i in reversed(range(len(self.head.next))):
+        for i in reversed(range(self.height)):
             while node.next[i] != None and node.next[i].key < key:
                 node = node.next[i]
             update[i] = node
@@ -31,7 +31,7 @@ class SkipList(object):
     def search (self, key):
         return self._search(key)
 
-    def _search(self, key, update):
+    def _search(self, key, update=None):
         if update == None:
             update = self._update_list(key)
 
@@ -88,3 +88,12 @@ class SkipList(object):
         while random.random() < 0.5:
             lvl += 1
         return lvl
+
+if __name__ == '__main__':
+    l = SkipList()
+    l.insert(12)
+    l.insert(52)
+    l.insert(13)
+    l.insert(23)
+    l.print_list()
+    print l.search(12)
