@@ -77,6 +77,15 @@ An **AVL tree** is a binary search tree that is height balanced: for each node `
 
 ### Tries
 
+### Segment Tree
+
+Get the height and size of the segment tree from given array
+```python
+    arr = [0...n-1]
+    height = int(math.ceil(math.log(len(arr))/math.log(2)))
+    size  = 2 * int(math.pow(2, height)) - 1
+```
+
 #### references:
   * http://stackoverflow.com/questions/29799667/using-generators-to-perform-an-inorder-tree-traversal-on-a-bst
   * https://github.com/liuxinyu95/AlgoXY

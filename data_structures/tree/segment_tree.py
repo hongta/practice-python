@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import math
 
 class SegmentTree(object):
     def __init__(self, data=None):
-        self.t = data
+        height = int(math.ceil(math.log(len(data))/math.log(2)))
+        self.max_size = 2 * int(math.pow(2, height)) - 1
+        self.t = data + [None] * (self.max_size - len(data))
+
         self.sum_value = {}
 
 
@@ -31,4 +35,7 @@ class SegmentTree(object):
         return ans
 
 if __name__ == '__main__':
-    s = SegmentTree()
+    s = SegmentTree([1,2,3,4,5,6,7,8])
+    print s.max_size
+    print s.t
+    print len(s.t)
