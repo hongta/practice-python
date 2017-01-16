@@ -6,19 +6,22 @@ class SegmentTree(object):
     def __init__(self, data=None):
         height = int(math.ceil(math.log(len(data))/math.log(2)))
         self.max_size = 2 * int(math.pow(2, height)) - 1
-        self.t = data + [None] * (self.max_size - len(data))
+        self.t = [None] * self.max_size
 
-        self.sum_value = {}
+        self._build(0, 0, len(data)-1, data)
 
+    def _build(self, index, start, end, lst):
 
-    def _build(self, start, end):
-
-        self.sum_value[(start, end)] = 0
+        if start == end:
+            self.t[index] = lst[start]
+            return self.t[index]
 
         if start < end:
             mid = start + (end - start) // 2
-            self._build(start, mid)
-            self._build(mid+1, end)
+            self.t[index] = (self._build(2*index+1, start, mid,lst)
+                            + self._build(2*index+2, mid+1, end, lst))
+
+        return self.t[index]
 
     def _query_sum(self, start, end, in_start, in_end):
         if start == in_start and end == in_end:
@@ -36,6 +39,5 @@ class SegmentTree(object):
 
 if __name__ == '__main__':
     s = SegmentTree([1,2,3,4,5,6,7,8])
-    print s.max_size
     print s.t
     print len(s.t)
