@@ -13,55 +13,61 @@ class SegmentTree(object):
 
     def update_value(self, index, value):
         if index not in range(len(self.orignal_data)):
-            return
-        diff = value - self.orignal_data[index]
+            raise IndexError("index out of bounds")
+
         self._update_value(0, len(self.orignal_data)-1, 0, index, value)
 
-    def _update_value(self, start, end, node, index, value):
-        if index < start or index > end:
+    def _update_value(self, in_start, in_end, node, index, value):
+        if index < in_start or index > in_end:
             return
 
-        if start == end:
+        if in_start == in_end:
             self.t[node] = value
             return
 
-        mid = start + (end - start) // 2
-        self._update_value(start, mid, 2*node+1, index, value)
-        self._update_value(mid+1, end, 2*node+2, index, value)
+        mid = in_start + (in_end - in_start) // 2
+        self._update_value(in_start, mid, 2*node+1, index, value)
+        self._update_value(mid+1, in_end, 2*node+2, index, value)
 
         self.t[node] = self.t[node*2] + self.t[node*2+1]
 
 
-    def _build(self, index, start, end):
+    def _build(self, node , in_start, in_end):
 
-        if start == end:
-            self.t[index] = self.orignal_data[start]
-            return self.t[index]
+        if in_start == in_end:
+            self.t[node] = self.orignal_data[in_start]
+            return self.t[node]
 
-        if start < end:
-            mid = start + (end - start) // 2
-            self.t[index] = (self._build(2*index+1, start, mid)
-                            + self._build(2*index+2, mid+1, end))
+        mid = in_start + (in_end - in_start) // 2
+        self.t[node] = (self._build(2*node+1, in_start, mid)
+                        + self._build(2*node+2, mid+1, in_end))
 
-        return self.t[index]
+        return self.t[node]
 
-    def _query_sum(self, start, end, in_start, in_end):
-        if start == in_start and end == in_end:
-            ans = self.sum_value[{start, end}]
-        else:
-            mid = in_start + (in_end - in_start) // 2
-            if mid >= end:
-                ans = self._query_sum(start, end, in_start, mid)
-            elif mid + 1 <= start:
-                ans = self._query_sum(start, end, mid+1, end)
-            else:
-                ans = self._query_sum(start, end, in_start, mid) + self._query_sum(mid+1, end, mid+1, end)
+    def query_sum(self, qs, qe):
+        if qs < 0 or qe > len(self.orignal_data) - 1 or qs > qe:
+            raise IndexError("index out of bounds")
 
-        return ans
+        return self._query_sum(0, qs, qe, 0, len(self.orignal_data)-1)
+
+    def _query_sum(self, node, qs, qe, in_start, in_end):
+
+        # if segment of this node is a port of given range, then return node data
+        if qs <= in_start and qe >= in_end:
+            return self.t[node]
+
+        #outside of given range
+        if in_end < qs or in_start > qe:
+            return 0
+
+        mid = in_start + (in_end - in_start) // 2
+        return (self._query_sum(2*node+1, qs, qe, in_start, mid)
+                + self._query_sum(2*node+2, qs, qe, mid+1, in_end))
 
 if __name__ == '__main__':
     s = SegmentTree([1,2,3,4,5,6,7,8])
     print s.t
-    s.update_value(0,9)
-    print s.t
-    print len(s.t)
+    # s.update_value(0,9)
+    # print s.t
+    # print len(s.t)
+    print s.query_sum(1,3)
