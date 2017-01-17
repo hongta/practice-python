@@ -15,19 +15,21 @@ class SegmentTree(object):
         if index not in range(len(self.orignal_data)):
             return
         diff = value - self.orignal_data[index]
-        self._update_value(0, len(self.t)-1, index, 0, diff)
+        self._update_value(0, len(self.orignal_data)-1, 0, index, value)
 
-    def _update_value(self, start, end, array_index, tree_index, diff):
-        if array_index < start or array_index > end:
+    def _update_value(self, start, end, node, index, value):
+        if index < start or index > end:
             return
 
-        print "index:",tree_index
-        print "start:",start, ", end:",end
-        self.t[tree_index] += diff
-        if start != end:
-            mid = start + (end - start) // 2
-            self._update_value(start, mid, array_index, 2*tree_index+1, diff)
-            self._update_value(mid+1, end, array_index, 2*tree_index+2, diff)
+        if start == end:
+            self.t[node] = value
+            return
+
+        mid = start + (end - start) // 2
+        self._update_value(start, mid, 2*node+1, index, value)
+        self._update_value(mid+1, end, 2*node+2, index, value)
+
+        self.t[node] = self.t[node*2] + self.t[node*2+1]
 
 
     def _build(self, index, start, end):
