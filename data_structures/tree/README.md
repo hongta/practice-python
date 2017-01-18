@@ -81,12 +81,71 @@ An **AVL tree** is a binary search tree that is height balanced: for each node `
 
 Get the height and size of the segment tree from given array
 ```python
-    arr = [0...n-1]
+    arr = [0...N-1]
     height = int(math.ceil(math.log(len(arr))/math.log(2)))
     size  = 2 * int(math.pow(2, height)) - 1
 ```
+Get node `n` parent, left child and right child
+```python
+    arr = [0 ... N-1]
+    parent = arr[int((n-1)/2)]
+    left_child = arr[2*n+1]
+    right_child = arr[2*n+2]
+```
+#### Data Types
+  * **build tree**: initialize segment tree using a given array
+  * **update tree** update an element in segement tree
+  * **query tree**  retrieve the value from segment tree
+
+
+ ```
+ build_tree(node, a, b)
+    when it's leaf node
+        udpate segement_tree[node] with given_array[a]
+        and return the segment_tree[node]
+
+    call recurisive functions
+        to get the value of left child in range [a, (a+b)/2]
+        and get the value of right child in range [(a+b)/2+1, b]
+
+    update the node from values of left child and right child
+        and return the segment_tree[node]
+
+update_tree(node, a, b, index, value)
+    when index is out of range [a, b]
+        ignore
+
+    when the leaf node is we want to update
+        segment_tree[node] = value
+
+    call recurisive functions
+        to update the value of left child in range [a, (a+b)/2]
+        and update the value of right child in range [(a+b)/2+1, b]
+
+    update the node from the values of left child and right child
+
+query_tree(node, a, b, i, j)
+    when  [a, b] is out of range [i, j]
+        return 0 for sum, or MAX_SIZE for min, or MiN_SIZE for max query
+
+    when [a, b] in range [i, j]
+        retrun segement_tree[node]
+
+
+    otherwise a part of this segment [a, b] overlaps with the given range [i ,j]
+        call recurisive functions
+        to get the value of left child in range [a, (a+b)/2]
+        and get the value of right child in range [(a+b)/2+1, b]
+
+    calculate and return the values of left child and right child
+ ```
 
 #### references:
+  * http://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range/
+  * http://codeforces.com/blog/entry/18051
+  * https://github.com/leonsim/segmenttree
+
+### references:
   * http://stackoverflow.com/questions/29799667/using-generators-to-perform-an-inorder-tree-traversal-on-a-bst
   * https://github.com/liuxinyu95/AlgoXY
   * https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm
