@@ -144,6 +144,7 @@ query_tree(node, a, b, i, j)
   * http://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range/
   * http://codeforces.com/blog/entry/18051
   * https://github.com/leonsim/segmenttree
+  * https://leetcode.com/articles/recursive-approach-segment-trees-range-sum-queries-lazy-propagation/
 
 ### references:
   * http://stackoverflow.com/questions/29799667/using-generators-to-perform-an-inorder-tree-traversal-on-a-bst
