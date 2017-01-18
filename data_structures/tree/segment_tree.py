@@ -5,69 +5,81 @@ import math
 class SegmentTree(object):
     def __init__(self, data=None):
         height = int(math.ceil(math.log(len(data))/math.log(2)))
-        self.max_size = 2 * int(math.pow(2, height)) - 1
-        self.t = [None] * self.max_size
-        self.orignal_data = data
+        max_size = 2 * int(math.pow(2, height)) - 1
+
+        self.tree = [None] * max_size
+        self._array = data
 
         self._build(0, 0, len(data)-1)
 
     def update_value(self, index, value):
-        if index not in range(len(self.orignal_data)):
+        if index not in range(len(self._array)):
             raise IndexError("index out of bounds")
 
-        self._update_value(0, len(self.orignal_data)-1, 0, index, value)
+        self._update_value(0, 0, len(self._array)-1, index, value)
 
-    def _update_value(self, in_start, in_end, node, index, value):
-        if index < in_start or index > in_end:
+    def _update_value(self, node, a, b, index, value):
+
+        # 1. index outside the range of this segment
+        if index < a or index > b:
             return
 
-        if in_start == in_end:
-            self.t[node] = value
+        # 2. the leaf node we want to update
+        if a == b:
+            self.tree[node] = value
             return
 
-        mid = in_start + (in_end - in_start) // 2
-        self._update_value(in_start, mid, 2*node+1, index, value)
-        self._update_value(mid+1, in_end, 2*node+2, index, value)
+        # 3. update left child in range [a, (a+b)/2]
+        #      and right child in range [(a+b)/2+1, b]
+        mid = a + (b - a) // 2
+        self._update_value(2*node+1, a, mid, index, value)
+        self._update_value(2*node+2, mid+1, b, index, value)
 
-        self.t[node] = self.t[node*2] + self.t[node*2+1]
+        # 4. update node data after children.
+        self.tree[node] = self.tree[node*2] + self.tree[node*2+1]
 
 
-    def _build(self, node , in_start, in_end):
+    def _build(self, node , a, b):
 
-        if in_start == in_end:
-            self.t[node] = self.orignal_data[in_start]
-            return self.t[node]
+        # 1. update leaf node data
+        if a == b:
+            self.tree[node] = self._array[a]
+            return self.tree[node]
 
-        mid = in_start + (in_end - in_start) // 2
-        self.t[node] = (self._build(2*node+1, in_start, mid)
-                        + self._build(2*node+2, mid+1, in_end))
+        # 2. build left child in range [a, (a+b)/2]
+        #      and right child in range [(a+b)/2+1, b]
+        mid = a + (b - a) // 2
+        self.tree[node] = (self._build(2*node+1, a, mid)
+                        + self._build(2*node+2, mid+1, b))
 
-        return self.t[node]
+        return self.tree[node]
 
-    def query_sum(self, qs, qe):
-        if qs < 0 or qe > len(self.orignal_data) - 1 or qs > qe:
+    def query_sum(self, i, j):
+        if i < 0 or j > len(self._array) - 1 or i > j:
             raise IndexError("index out of bounds")
 
-        return self._query_sum(0, qs, qe, 0, len(self.orignal_data)-1)
+        return self._query_sum(0, 0, len(self._array)-1, i, j)
 
-    def _query_sum(self, node, qs, qe, in_start, in_end):
+    def _query_sum(self, node, a, b, i, j):
 
-        # if segment of this node is a port of given range, then return node data
-        if qs <= in_start and qe >= in_end:
-            return self.t[node]
-
-        #outside of given range
-        if in_end < qs or in_start > qe:
+        # 1. outside of given range
+        if b < i or a > j:
             return 0
 
-        mid = in_start + (in_end - in_start) // 2
-        return (self._query_sum(2*node+1, qs, qe, in_start, mid)
-                + self._query_sum(2*node+2, qs, qe, mid+1, in_end))
+        # 2. if segment of this node is a port of given range, then return node data
+        if i <= a and j >= b:
+            return self.tree[node]
+
+
+        # 3. If a part of this segment [a, b] overlaps with the given range [i, j]
+        mid = a + (b - a) // 2
+        return (self._query_sum(2*node+1, a, mid, i, j)
+                + self._query_sum(2*node+2, mid+1, b, i, j))
 
 if __name__ == '__main__':
     s = SegmentTree([1,2,3,4,5,6,7,8])
-    print s.t
+    print s.tree
     # s.update_value(0,9)
-    # print s.t
-    # print len(s.t)
+    # print s.tree
+    # print len(s.tree)
     print s.query_sum(1,3)
