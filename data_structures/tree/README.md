@@ -146,6 +146,17 @@ query_tree(node, a, b, i, j)
   * https://github.com/leonsim/segmenttree
   * https://leetcode.com/articles/recursive-approach-segment-trees-range-sum-queries-lazy-propagation/
 
+### Binary Indexed Tree
+```
+lowbit(i) = ( (i-1) ^ i) & i ; #or (i & (-i))
+
+#parent
+parent = e[ i - lowbit(i) ]
+
+#children
+child = e[ i + lowbit(i) ]
+```
+
 ### references:
   * http://stackoverflow.com/questions/29799667/using-generators-to-perform-an-inorder-tree-traversal-on-a-bst
   * https://github.com/liuxinyu95/AlgoXY
