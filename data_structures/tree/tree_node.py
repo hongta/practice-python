@@ -119,7 +119,7 @@ class AVLTreeNode(TreeNode):
 
 class IntervalTreeNode(TreeNode):
     def __init__(self, key=None, payload=None):
-        super(AVLTreeNode, self).__init__(key, payload)
+        super(IntervalTreeNode, self).__init__(key, payload)
         self.low = None
         self.high = None
         self.max = 0

@@ -8,18 +8,17 @@ class IntervalTree(object):
         self.root = None
 
     def insert(self, interval):
-        if not self.root:
-            t.low = interval[0]
-            t.high = interval[1]
-            self.root = t
-            return
-            
         self._insert(self.root, interval)
 
     def _insert(self, node, interval):
 
-        low = node.low
+        if not node:
+            node = IntervalTreeNode()
+            (node.low, node.high) = interval
+            node.max = interval[1]
+            return node
 
+        low = node.low
         if interval[0] < low:
             node.left = self._insert(node.left, interval)
         else:
@@ -29,3 +28,10 @@ class IntervalTree(object):
             node.max = interval[1]
 
         return node
+
+if __name__ == '__main__':
+    t = IntervalTree()
+    t.insert((5,12))
+    t.insert((4,8))
+    t.insert((10,15))
+    
