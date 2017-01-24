@@ -123,3 +123,7 @@ class IntervalTreeNode(TreeNode):
         self.low = None
         self.high = None
         self.max = 0
+
+    def __str__(self):
+        s = "[%s, %s]" % (self.low, self.high)
+        return s

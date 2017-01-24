@@ -8,7 +8,7 @@ class IntervalTree(object):
         self.root = None
 
     def insert(self, interval):
-        self._insert(self.root, interval)
+        self.root = self._insert(self.root, interval)
 
     def _insert(self, node, interval):
 
@@ -29,9 +29,17 @@ class IntervalTree(object):
 
         return node
 
+    def is_overlap(self, interval_1, interval_2):
+        if interval_1[0] <= interval_2[1] and interval_2[0] <=interval_1[1]:
+            return True
+        return False
+
+    def search(self, interval):
+
 if __name__ == '__main__':
     t = IntervalTree()
     t.insert((5,12))
     t.insert((4,8))
     t.insert((10,15))
     
+    print t.search((13,15))
