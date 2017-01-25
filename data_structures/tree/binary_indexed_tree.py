@@ -15,7 +15,6 @@ class BinaryIndexedTree(object):
         size = len(data)
         for i in range(size):
             j = i + self._lowbit(i+1)
-            print "j: %s, i: %s, lowbit: %s" % (j, i, self._lowbit(i+1))
             if j < size:
                 data[j] += data[i]
 

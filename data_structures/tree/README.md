@@ -92,7 +92,7 @@ Get node `n` parent, left child and right child
     left_child = arr[2*n+1]
     right_child = arr[2*n+2]
 ```
-#### Data Types
+#### API
   * **build tree**: initialize segment tree using a given array
   * **update tree** update an element in segement tree
   * **query tree**  retrieve the value from segment tree
@@ -147,15 +147,19 @@ query_tree(node, a, b, i, j)
   * https://leetcode.com/articles/recursive-approach-segment-trees-range-sum-queries-lazy-propagation/
 
 ### Binary Indexed Tree
-```
+
+#### Get last digit 1 in binary
+
+```python
 lowbit(i) = ( (i-1) ^ i) & i ; #or (i & (-i))
-
-#parent
-parent = e[ i - lowbit(i) ]
-
-#children
-child = e[ i + lowbit(i) ]
 ```
+
+#### Get Parents
+Parent can be obtained by removing the last set bit from index `e[ i + lowbit(i) ]`
+
+
+#### References
+  * https://www.topcoder.com/community/data-science/data-science-tutorials/binary-indexed-trees/#!
 
 ### references:
   * http://stackoverflow.com/questions/29799667/using-generators-to-perform-an-inorder-tree-traversal-on-a-bst
