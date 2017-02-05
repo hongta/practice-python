@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-class ListQueue(object):
+
+class ListDeque(object):
 
     def __init__(self):
         self._items = []
@@ -17,18 +18,14 @@ class ListQueue(object):
     def size(self):
         return len(self._items)
 
-    def enqueue(self, item):
+    def enqueue_first(self, item):
+        self._items.append(item)
+
+    def enqueue_last(self, item):
         self._items.insert(0, item)
 
-    def dequeue(self):
+    def dequeue_first(self):
         return self._items.pop()
 
-if __name__ == '__main__':
-    l = ListQueue()
-    l.enqueue(23)
-    l.enqueue(12)
-    l.enqueue(25)
-    l.enqueue(27)
-    print l._items
-    for v in l:
-        print v
+    def dequeue_last(self):
+        return self._items.pop(0)
