@@ -21,7 +21,25 @@ def _counting_sort(a, max_value):
     return result
 
 
+def counting_sort_in_place(a):
+    """
+    in-place counting sort
+    http://p-nand-q.com/python/algorithms/sorting/countingsort.html
+    """
+
+    counter = [0] * (max(a) + 1)
+    for i in a:
+        counter[i] += 1
+
+    pos = 0
+    for i, count in enumerate(counter):
+        for _ in range(count):
+            a[pos] = i
+            pos += 1
+
+    return a
+
 if __name__ == '__main__':
     d = [4,2,1,10,10,5,3,22, 7, 1]
-
+    print counting_sort_in_place(d)
     print counting_sort(d)
