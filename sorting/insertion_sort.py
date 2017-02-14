@@ -5,8 +5,8 @@ def insertion_sort(a):
     for i in range(1, len(a)):
         current_val = a[i]
         j = i
-        while j > 0 and a[i-1] > current_val:
-            a[j] = a[i-1]
+        while j > 0 and a[j-1] > current_val:
+            a[j] = a[j-1]
             j -= 1
         a[j] = current_val
     return a
