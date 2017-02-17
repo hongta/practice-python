@@ -30,8 +30,19 @@ def binary_search2(a, needle):
             return mid
     return False
 
+from bisect import bisect_left
+
+def binary_search3(a, needle):
+    p = bisect_left(a, needle)
+    if p < len(a) and a[p] == needle:
+        return p
+    return False
+
+
 
 if __name__ == '__main__':
     d = sorted([2,3,6, 21, 23,5, 10,30,24, 15])
     print d
-    print binary_search2(d, 10)
+    print binary_search(d, 10)
+    print binary_search2(d, 12)
+    print binary_search3(d, 31)
