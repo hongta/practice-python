@@ -50,6 +50,20 @@ def kmp_first_match(text, pattern):
             return start_pos
     return False
 
+def kmp_all_matches(text, pattern):
+    shfits = kmp_shift_table(pattern)
+    start_pos = 0
+    match_len = 0
+
+    for c in text:
+        while match_len >= 0 and pattern[match_len] != c:
+            start_pos += shfits[match_len]
+            match_len -= shfits[match_len]
+        match_len += 1
+        if match_len == len(pattern):
+            yield start_pos
+            start_pos += shfits[match_len]
+            match_len -= shfits[match_len]
 
 
 if __name__ == '__main__':
