@@ -38,26 +38,21 @@ class BinarySearchTree(object):
         if not self._root:
             self._root= TreeNode(k,payload)
         else:
-            n = TreeNode(k, payload)
-            self._insert(self._root, n)
+            self._insert(self._root, k, payload)
 
 
-    def _insert(self, tree_node, new_node):
-        if new_node.key == tree_node.key:
-            tree_node.payload = new_node.payload
-            return tree_node
+    def _insert(self, tree_node, k, payload=None):
+        if not tree_node:
+            return TreeNode(k, payload)
 
-        if new_node.key < tree_node.key:
-            if not tree_node.left:
-                tree_node.set_children(left=new_node)
-            else:
-                return self._insert(tree_node.left, new_node)
+        if k < tree_node.key:
+            tree_node.set_children(left=self._insert(tree_node.left, k, payload))
+        elif k > tree_node.key:
+            tree_node.set_children(right=self._insert(tree_node.right, k, payload))
         else:
-            if not tree_node.right:
-                tree_node.set_children(right=new_node)
-            else:
-                return self._insert(tree_node.right, new_node)
-        return new_node
+            tree_node.payload = payload
+
+        return tree_node
 
     def remove_node(self, node):
         if None:
