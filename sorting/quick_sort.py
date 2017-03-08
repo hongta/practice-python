@@ -9,7 +9,7 @@ def quick_sort(a):
 def _quick_sort(a, lo, hi):
 
     if lo < hi:
-        j = partition(a, lo, hi)
+        j = partition2(a, lo, hi)
         _quick_sort(a, lo, j-1)
         _quick_sort(a, j+1, hi)
 
@@ -28,6 +28,25 @@ def partition(a, lo, hi):
     a[lo], a[border] = a[border], a[lo]
 
     return border
+
+def partition2(a, lo, hi):
+
+    pivot = a[lo]
+    l = lo
+    h = hi
+    while True:
+        while a[l] < pivot and l < hi:
+            l += 1
+        while a[h] > pivot and h > lo:
+            h -= 1
+
+        if l >= h:
+            break
+        a[l], a[h] = a[h], a[l]
+    a[lo], a[l] = a[lo], a[l]
+
+    return l
+
 
 if __name__ == '__main__':
     d = [34,2,24,12, 45,33,9,99]
