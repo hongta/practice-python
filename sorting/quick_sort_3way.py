@@ -32,5 +32,5 @@ def _quick_sort_3way(a, lo, hi):
 
 
 if __name__ == '__main__':
-    d = [34,2,24,12, 45,33,9,99]
+    d = [34,2,24,12, 45,33,9,99, 12, 12]
     print quick_sort_3way(d)
